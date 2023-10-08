@@ -38,9 +38,8 @@ class QueueController extends Controller
         foreach ($registrars as $registrar) {
             $registrar->currentQueue = Queue::where('served', true)
                 ->where('called_by', $registrar->id)
-                ->orderBy('updated_at')
-                ->get()
-                ->last();
+                ->orderBy('updated_at', 'desc')
+                ->first();
         }
         $queues = Queue::where('served', false)->orderBy('created_at')->get();
         return view('customer', compact('queues', 'registrars'));
@@ -50,4 +49,17 @@ class QueueController extends Controller
         $queues = Queue::where('served', false)->orderBy('created_at')->get();
         return response()->json(['queues' => $queues]);
     }
+    public function getCurrentServing()
+    {
+        $registrars = User::all();
+        foreach ($registrars as $registrar) {
+            $registrar->currentQueue = Queue::where('served', true)
+                ->where('called_by', $registrar->id)
+                ->orderBy('updated_at', 'desc')
+                ->first();
+        }
+        return response()->json(['registrars' => $registrars]);
+    }
+    
+
 }

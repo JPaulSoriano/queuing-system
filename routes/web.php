@@ -21,6 +21,7 @@ Route::post('/queue/next', [QueueController::class, 'serveNext'])->name('queue.n
 Route::get('/customer', [QueueController::class, 'customerView'])->name('customer.view');
 
 Route::get('/queues', [QueueController::class, 'getQueues'])->name('queues.list');
+Route::get('/current-serving', [QueueController::class, 'getCurrentServing'])->name('current-serving');
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

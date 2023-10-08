@@ -94,6 +94,26 @@
                 }
             });
         }
+        function updateNowServing() {
+            $.ajax({
+                url: '{{ route('current-serving') }}',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    var registrarListHtml = '<h1>Now Serving:</h1>';
+
+                    $.each(data.registrars, function(index, registrar) {
+                        if (registrar.currentQueue) {
+                            registrarListHtml += '<h1>Queue #' + registrar.currentQueue.number + ' on Registrar ' + registrar.id + '</h1>';
+                        } else {
+                            registrarListHtml += '<h1>No queue is currently being served on Registrar ' + registrar.id + '</h1>';
+                        }
+                    });
+
+                    $('#now-serving').html(registrarListHtml);
+                }
+            });
+        }
         // Function to update the queue list on the index view
         function updateIndexView(queues) {
             var queueListHtml = '<h2>Queue Lists:</h2><ul>';
@@ -114,8 +134,10 @@
         }
         // Poll for updates every 5 seconds (adjust the interval as needed)
         setInterval(updateQueueLists, 5000);
+        setInterval(updateNowServing, 5000);
         // Initial update on page load
         updateQueueLists();
+        updateNowServing();
     });
     </script>
 </body>
