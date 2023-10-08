@@ -9,9 +9,6 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -79,5 +76,47 @@
             @yield('content')
         </main>
     </div>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        function updateQueueLists() {
+            $.ajax({
+                url: '{{ route('queues.list') }}',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    // Update the queue lists on the index and customer views
+                    updateIndexView(data.queues);
+                    updateCustomerView(data.queues);
+                }
+            });
+        }
+        // Function to update the queue list on the index view
+        function updateIndexView(queues) {
+            var queueListHtml = '<h2>Queue Lists:</h2><ul>';
+            $.each(queues, function(index, queue) {
+                queueListHtml += '<li>Queue #' + queue.number + '</li>';
+            });
+            queueListHtml += '</ul>';
+            $('#queue-list').html(queueListHtml);
+        }
+        // Function to update the queue list on the customer view
+        function updateCustomerView(queues) {
+            var queueListHtml = '<h2>Queue Lists:</h2><ul>';
+            $.each(queues, function(index, queue) {
+                queueListHtml += '<li>Queue #' + queue.number + '</li>';
+            });
+            queueListHtml += '</ul>';
+            $('#customer-queue-list').html(queueListHtml);
+        }
+        // Poll for updates every 5 seconds (adjust the interval as needed)
+        setInterval(updateQueueLists, 5000);
+        // Initial update on page load
+        updateQueueLists();
+    });
+    </script>
 </body>
 </html>

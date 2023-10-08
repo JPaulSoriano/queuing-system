@@ -45,5 +45,9 @@ class QueueController extends Controller
         $queues = Queue::where('served', false)->orderBy('created_at')->get();
         return view('customer', compact('queues', 'registrars'));
     }
-
+    public function getQueues()
+    {
+        $queues = Queue::where('served', false)->orderBy('created_at')->get();
+        return response()->json(['queues' => $queues]);
+    }
 }

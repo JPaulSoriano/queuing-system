@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 <h1>Now Serving:</h1>
 @foreach ($registrars as $registrar)
@@ -9,10 +8,7 @@
         <h1>No queue is currently being served on Registrar {{ $registrar->id }}</h1>
     @endif
 @endforeach
-<h2>Queues:</h2>
-<ul>
-    @foreach ($queues as $queue)
-        <li>Queue #{{ $queue->number }}</li>
-    @endforeach
-</ul>
+<div id="customer-queue-list">
+    <!-- Queue lists will be displayed here -->
+</div>
 @endsection

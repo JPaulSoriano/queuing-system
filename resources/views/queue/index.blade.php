@@ -9,10 +9,7 @@
         @csrf
         <button type="submit">Next</button>
     </form>
-    <h2>Queue Lists:</h2>
-    <ul>
-        @foreach ($queues as $queue)
-            <li>Queue #{{ $queue->number }}</li>
-        @endforeach
-    </ul>
+    <div id="queue-list">
+        <!-- Queue lists will be displayed here -->
+    </div>
 @endsection
