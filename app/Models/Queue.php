@@ -10,6 +10,6 @@ class Queue extends Model
     use HasFactory;
     
     protected $fillable = [
-        'number', 'served'
+        'number', 'served', 'called_by'
     ];
 }

@@ -17,6 +17,7 @@ class CreateQueuesTable extends Migration
             $table->id();
             $table->unsignedInteger('number');
             $table->boolean('served')->default(false);
+            $table->unsignedInteger('called_by')->nullable();
             $table->timestamps();
         });
     }
