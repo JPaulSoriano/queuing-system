@@ -13,24 +13,23 @@ class QueueController extends Controller
     
         return view('queue.index', compact('nowServing', 'queues'));
     }
-    
     public function serveNext()
     {
         $nextQueue = Queue::where('served', false)->orderBy('created_at')->first();
         if ($nextQueue) {
             $nextQueue->update(['served' => true]);
         }
-    
         return redirect()->route('queue.index');
     }
-    
     public function create()
     {
-        $lastQueueNumber = Queue::max('number') ?? 0;
-        $queue = Queue::create([
-            'number' => $lastQueueNumber + 1,
-        ]);
-    
+        // Get the maximum queue number that hasn't been served yet
+        $lastUnservedQueue = Queue::where('served', false)->max('number');
+        // Determine the new queue number
+        $queueNumber = $lastUnservedQueue !== null ? $lastUnservedQueue + 1 : 1;
+        // Create a new queue record
+        Queue::create(['number' => $queueNumber]);
         return redirect()->route('queue.index');
     }
+    
 }
