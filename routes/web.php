@@ -18,5 +18,8 @@ Route::post('/getQueue', [QueueController::class, 'getQueue'])->name('getQueue')
 Route::get('/queue', [QueueController::class, 'index'])->name('queue.index');
 Route::post('/queue/next', [QueueController::class, 'serveNext'])->name('queue.next');
 
+Route::get('/customer', [QueueController::class, 'customerView'])->name('customer.view');
+
+
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
