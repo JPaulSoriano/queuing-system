@@ -14,6 +14,7 @@ use App\Http\Controllers\QueueController;
 */
 Route::get('/queue', [QueueController::class, 'index'])->name('queue.index');
 Route::post('/queue/next', [QueueController::class, 'serveNext'])->name('queue.next');
+Route::get('/queue/register', [QueueController::class, 'showRegistrationForm'])->name('queue.register');
 Route::post('/queue/create', [QueueController::class, 'create'])->name('queue.create');
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -21,6 +21,10 @@ class QueueController extends Controller
         }
         return redirect()->route('queue.index');
     }
+    public function showRegistrationForm()
+    {
+        return view('queue.register');
+    }
     public function create()
     {
         // Get the maximum queue number that hasn't been served yet
@@ -29,7 +33,7 @@ class QueueController extends Controller
         $queueNumber = $lastUnservedQueue !== null ? $lastUnservedQueue + 1 : 1;
         // Create a new queue record
         Queue::create(['number' => $queueNumber]);
-        return redirect()->route('queue.index');
+        return redirect()->route('queue.register');
     }
     
 }
