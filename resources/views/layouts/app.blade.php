@@ -108,9 +108,9 @@
 
                     $.each(data.registrars, function(index, registrar) {
                         if (registrar.currentQueue) {
-                            registrarListHtml += '<h1>Queue #' + registrar.currentQueue.number + ' on Registrar ' + registrar.id + '</h1>';
+                            registrarListHtml += '<h1>Queue #' + registrar.currentQueue.number + ' on ' + registrar.name + '</h1>';
                         } else {
-                            registrarListHtml += '<h1>No queue is currently being served on Registrar ' + registrar.id + '</h1>';
+                            registrarListHtml += '<h1>No queue is currently being served on ' + registrar.name + '</h1>';
                         }
                     });
 
@@ -137,26 +137,26 @@
             $('#customer-queue-list').html(queueListHtml);
         }
 
-    $('#get-queue-form').submit(function(event) {
-        event.preventDefault();
-        // Disable the "Get Queue" button and show the loading indicator
-        $('#get-queue-button').prop('disabled', true);
-        $('#loading-indicator').show();
+        $('#get-queue-form').submit(function(event) {
+            event.preventDefault();
+            // Disable the "Get Queue" button and show the loading indicator
+            $('#get-queue-button').prop('disabled', true);
+            $('#loading-indicator').show();
 
-        $.ajax({
-            url: '{{ route('getQueue') }}',
-            type: 'POST',
-            data: $(this).serialize(),
-            success: function() {
-                // Queue request was successful
-                // No need to do anything here, as updates will be handled by updateQueueLists()
-            },
-            error: function() {
-                // Handle error if the queue request fails
-                // You may want to display an error message to the user
-            }
+            $.ajax({
+                url: '{{ route('getQueue') }}',
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function() {
+                    // Queue request was successful
+                    // No need to do anything here, as updates will be handled by updateQueueLists()
+                },
+                error: function() {
+                    // Handle error if the queue request fails
+                    // You may want to display an error message to the user
+                }
+            });
         });
-    });
         // Poll for updates every 5 seconds (adjust the interval as needed)
         setInterval(updateQueueLists, 2500);
         setInterval(updateNowServing, 2500);

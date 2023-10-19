@@ -7,7 +7,7 @@
 @endif
     <form method="POST" action="{{ route('queue.next') }}">
         @csrf
-        <button type="submit">Next</button>
+        <button type="submit" class="btn btn-primary">Next</button>
     </form>
     <div id="queue-list">
         <!-- Queue lists will be displayed here -->
