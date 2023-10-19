@@ -157,6 +157,21 @@
                 }
             });
         });
+
+        // Function to trigger text-to-speech
+        function speakNowServing(text) {
+            var msg = new SpeechSynthesisUtterance();
+            msg.text = text;
+            window.speechSynthesis.speak(msg);
+        }
+        // Event handler for the text-to-speech button
+        $('#text-to-speech-button').on('click', function() {
+            var nowServingInfo = $('#now-serving-info').val();
+            if (nowServingInfo) {
+                speakNowServing(nowServingInfo);
+            }
+        });
+
         // Poll for updates every 5 seconds (adjust the interval as needed)
         setInterval(updateQueueLists, 2500);
         setInterval(updateNowServing, 2500);
